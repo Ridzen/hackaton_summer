@@ -53,3 +53,4 @@ class LogoutView(APIView):
     def post(self, request):
         logout(request)
         return Response({'message': 'User logged out successfully.'}, status=status.HTTP_200_OK)
+
