@@ -5,6 +5,12 @@ from apps.auths.models import Users
 
 class RegistrationSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = Users
+        fields = (
+            "email",
+            "password"
+        )
     password = serializers.CharField(write_only=True)
 
     def create(self, validated_data):
@@ -14,13 +20,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+
+class LoginSerializer(serializers.Serializer):
     class Meta:
         model = Users
-        fields = [
-            "email",
-            "username",
-            "name",
-            'surname',
-            "birth_date",
-            "password",
-        ]
+
