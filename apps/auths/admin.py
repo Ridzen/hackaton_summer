@@ -7,8 +7,8 @@ from .models import Users
 class UsersAdmin(admin.ModelAdmin):
     # Определите отображаемые поля
 
-    list_display = ['name', 'email', 'surname', 'birth_date', 'password']
+    list_display = ['email', 'birth_date', 'password']
     # Определите поля для поиска
-    search_fields = ['name', 'surname', 'email']
+    search_fields = ['email']
     # Определите фильтры
-    list_filter = ['birth_date', 'name', 'surname', 'email']
+    list_filter = ['email']

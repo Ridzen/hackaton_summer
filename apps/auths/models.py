@@ -4,7 +4,6 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
-
 """ 
 Создание автоматической двух функций основанных на генерации моделек 
 """
@@ -35,28 +34,36 @@ class BaseUserAccountManager(BaseUserManager):
 
 class Users(AbstractBaseUser):
     email = models.EmailField(
-        verbose_name='email', max_length=60, unique=True, blank=True, null=True, default=None,
+        verbose_name='email', max_length=60, unique=True,
+        blank=True, null=True, default=None,
         help_text='Элетронная почта'
     )
-    name = models.CharField(
-        max_length=30, blank=True, null=True, verbose_name='Имя', help_text='Имя пользователя'
-    )
-    surname = models.CharField(
-        max_length=30, blank=True, null=True, verbose_name='Фамилия', help_text='Фамилия пользователя'
-    )
+    # name = models.CharField(
+    #     max_length=30, blank=True, null=True,
+    #     verbose_name='Имя', help_text='Имя пользователя'
+    # )
+    # surname = models.CharField(
+    #     max_length=30, blank=True, null=True,
+    #     verbose_name='Фамилия', help_text='Фамилия пользователя'
+    # )
     # username = models.CharField(
     #     max_length=60, blank=True, null=True, unique=True, verbose_name='Никнэйм', help_text='Никнейм пользователя'
     # )
-    birth_date = models.CharField(
-        max_length=30, blank=True, null=True, default=None, verbose_name='Дата рождения'
-    )
+    # username = models.CharField(
+    #     max_length=60, blank=True, null=True, unique=True,
+    #     verbose_name='Никнэйм', help_text='Никнейм пользователя'
+    # )
+    # birth_date = models.CharField(
+    #     max_length=30, blank=True, null=True,
+    #     default=None, verbose_name='Дата рождения'
+    # )
 
-    is_admin = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_simple_user = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=True)
-    is_owner = models.BooleanField(default=True)
-    is_superuser = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_owner = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -85,7 +92,7 @@ class Profile(models.Model):
         null=False, unique=True, verbose_name='Чей профиль', help_text='Профиль', related_name='profile'
     )
     username = models.CharField(
-        max_length=60, blank=True, null=True, unique=True, verbose_name='Никнэйм', help_text='Никнейм пользователя'
+        max_length=60, blank=True, null=True, unique=True, verbose_name='ФИО', help_text='ФИО'
     )
     user_image = models.ImageField(
         blank=True, null=True, verbose_name='Аватарка на профиль', help_text='Аватар'
