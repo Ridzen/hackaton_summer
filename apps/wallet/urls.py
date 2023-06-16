@@ -1,12 +1,9 @@
-from rest_framework.routers import DefaultRouter as DR
+from django.urls import path
 
-from apps.wallet.views import WalletViewSet
+from apps.wallet.views import WalletViewSet, WalletUpdateViewSet
 
-router = DR()
-router.register('wallet', WalletViewSet, basename='wallets')
 
 urlpatterns = [
-
+    path('wallet/', WalletViewSet.as_view(), name='wallet'),
+    path('wallet/<int:pk>/', WalletUpdateViewSet.as_view(), name='wallet-update'),
 ]
-
-urlpatterns += router.urls

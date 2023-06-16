@@ -30,7 +30,9 @@ urlpatterns = [
     path('reg/api/v1/', include('apps.auths.urls')),
     path('category/api/v1/', include('apps.categories.urls')),
     path('post/api/v1/', include('apps.posts.urls')),
-    path('wallet/api/v1/', include('apps.wallet.urls'))
+    path('wallet/api/v1/', include('apps.wallet.urls')),
+    path('payment/api/v1/', include('apps.payment.urls')),
+    path('auth/', include('rest_framework.urls')),
 ]
 
 urlpatterns += doc_urls
