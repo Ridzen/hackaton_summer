@@ -29,7 +29,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('reg/api/v1/', include('apps.auths.urls')),
     path('category/api/v1/', include('apps.categories.urls')),
-    path('post/api/v1/', include('apps.posts.urls'))
+    path('post/api/v1/', include('apps.posts.urls')),
+    path('wallet/api/v1/', include('apps.wallet.urls'))
 ]
 
 urlpatterns += doc_urls

@@ -44,3 +44,10 @@ class Post(models.Model):
     amount_of_person = models.IntegerField(
         verbose_name="Сколько людей уже согласилось"
     )
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Пост"
+        verbose_name_plural = "Посты"

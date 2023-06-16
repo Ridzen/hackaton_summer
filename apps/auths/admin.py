@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Users
+from .models import Users, Profile
+
 
 # Register your models here.
 
@@ -13,3 +14,8 @@ class UsersAdmin(admin.ModelAdmin):
     search_fields = ['email']
     # Определите фильтры
     list_filter = ['email']
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    pass

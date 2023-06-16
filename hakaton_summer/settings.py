@@ -48,8 +48,9 @@ INSTALLED_APPS = [
     # Installed apps
     'apps.auths',
     'apps.categories',
-    'apps.posts'
-
+    'apps.posts',
+    'apps.wallet',
+    'apps.payment'
 ]
 
 MIDDLEWARE = [
