@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-# Create your models here.
 
 """ 
 Создание автоматической двух функций основанных на генерации моделек 
@@ -106,5 +105,3 @@ class Profile(models.Model):
     birth_date = models.CharField(
         max_length=30, blank=True, null=True, default=None, verbose_name='Дата рождения'
     )
-
-

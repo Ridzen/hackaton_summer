@@ -27,7 +27,9 @@ app_name = 'auths'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('reg/api/v1/', include('apps.auths.urls'))
+    path('reg/api/v1/', include('apps.auths.urls')),
+    path('category/api/v1/', include('apps.categories.urls')),
+    path('post/api/v1/', include('apps.posts.urls'))
 ]
 
 urlpatterns += doc_urls
