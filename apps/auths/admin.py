@@ -1,13 +1,21 @@
 from django.contrib import admin
-from .models import Users
+from .models import Users, Profile
+
 
 # Register your models here.
 
+
 @admin.register(Users)
 class UsersAdmin(admin.ModelAdmin):
+
     # Определите отображаемые поля
-    list_display = ['name', 'email', 'surname', 'birth_date', 'username', 'password']
+    list_display = ['email', 'password']
     # Определите поля для поиска
-    search_fields = ['name', 'surname', 'email', 'username']
+    search_fields = ['email']
     # Определите фильтры
-    list_filter = ['birth_date', 'name', 'surname', 'email', 'username']
+    list_filter = ['email']
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    pass

@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # System apps
-    # 'jazzmin',   # Django-jazzmin(not system)
+    'jazzmin',   # Django-jazzmin(not system)
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,8 +46,11 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     # Installed apps
-    'apps.auths'
-
+    'apps.auths',
+    'apps.categories',
+    'apps.posts',
+    'apps.wallet',
+    'apps.payment'
 ]
 
 MIDDLEWARE = [

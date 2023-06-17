@@ -1,10 +1,16 @@
 from rest_framework import serializers
 
-from apps.auths.models import Users
+from apps.auths.models import Users, Profile
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = Users
+        fields = (
+            "email",
+            "password"
+        )
     password = serializers.CharField(write_only=True)
 
     def create(self, validated_data):
@@ -13,18 +19,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
-
-    class Meta:
-        model = Users
-        fields = (
-            "id",
-            "email",
-            "username",
-            "name",
-            'surname',
-            "birth_date",
-            "password",
-        )
 
 
 class LoginSerializer(serializers.ModelSerializer):
@@ -35,3 +29,18 @@ class LoginSerializer(serializers.ModelSerializer):
             "email",
             "password",
         )
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = (
+            "id",
+            "user_profile",
+            "username",
+            "user_image",
+            "bio",
+            "instagram_link",
+            "birth_date"
+        )
+
