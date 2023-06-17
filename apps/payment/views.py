@@ -3,7 +3,7 @@ from rest_framework.mixins import (
 )
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.permissions import (
-    IsAuthenticated
+    IsAuthenticated, AllowAny
 )
 
 from apps.payment.models import Payment
@@ -15,16 +15,16 @@ from apps.payment.serializers import (
 class PaymentView(GenericViewSet, CreateModelMixin):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
-    permission_classes = IsAuthenticated
+    permission_classes = AllowAny
 
 
 class PaymentFinishView(GenericViewSet, UpdateModelMixin):
     queryset = Payment.objects.all()
     serializer_class = PaymentFinishSerializer
-    permission_classes = IsAuthenticated
+    permission_classes = AllowAny
 
 
 class PaymentRollbackView(GenericViewSet, UpdateModelMixin):
     queryset = Payment.objects.all()
     serializer_class = PaymentRollbackSerializer
-    permission_classes = IsAuthenticated
+    permission_classes = AllowAny

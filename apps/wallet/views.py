@@ -9,11 +9,11 @@ class WalletViewSet(generics.CreateAPIView):
     """Wallet ViewSet"""
     queryset = Wallet.objects.all()
     serializer_class = WalletSerializer
-    permission_classes = permissions.IsAuthenticated
+    permission_classes = permissions.AllowAny
 
 
 class WalletUpdateViewSet(generics.UpdateAPIView):
     """Wallet ViewSet"""
     queryset = Wallet.objects.all()
     serializer_class = WalletUpdateSerializer
-    permission_classes = permissions.IsAuthenticated
+    permission_classes = permissions.AllowAny

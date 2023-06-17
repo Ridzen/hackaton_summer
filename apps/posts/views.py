@@ -9,4 +9,4 @@ class PostViewSet(PostMixin):
     """Post ViewSets"""
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
