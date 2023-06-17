@@ -29,8 +29,8 @@ class Post(models.Model):
     full_info = models.CharField(
         max_length=500, verbose_name='Полная информация'
     )
-    business_plan_file = models.FileField(
-         upload_to='media/business_documents', verbose_name="Файлы"
+    business_plan_file = models.CharField(
+        max_length=500, verbose_name='Файл'
     )
     amount = models.IntegerField(
         verbose_name="Общая запрашиваемая сумма"
