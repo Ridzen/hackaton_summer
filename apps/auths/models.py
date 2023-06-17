@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser
+    BaseUserManager, AbstractBaseUser, PermissionsMixin
 )
 from django.utils.translation import gettext_lazy as _
 
@@ -35,7 +35,7 @@ class BaseUserAccountManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class Users(AbstractBaseUser):
+class Users(AbstractBaseUser, PermissionsMixin):
     """Пользователь"""
     email = models.EmailField(
         verbose_name='email', max_length=60, unique=True,
