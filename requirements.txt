@@ -25,4 +25,4 @@ typing_extensions==4.6.3
 uritemplate==4.1.1
 urllib3==2.0.3
 django-environ==0.10.0
-
+django-jazzmin==2.6.0

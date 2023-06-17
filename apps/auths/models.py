@@ -35,7 +35,7 @@ class BaseUserAccountManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class Users(AbstractBaseUser):
+class Users(AbstractBaseUser, PermissionsMixin):
     """Пользователь"""
     email = models.EmailField(
         verbose_name='email', max_length=60, unique=True,
