@@ -1,4 +1,4 @@
-from rest_framework import permissions
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from apps.posts.models import Post
@@ -9,4 +9,4 @@ class PostViewSet(ModelViewSet):
     """Post ViewSets"""
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = permissions.IsAuthenticated
+    permission_classes = IsAuthenticated
