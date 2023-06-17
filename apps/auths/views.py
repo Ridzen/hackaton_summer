@@ -1,23 +1,34 @@
-from rest_framework import status, generics, permissions
+from rest_framework import (
+    status, generics
+)
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import (
+    AllowAny, IsAuthenticated
+)
 from rest_framework.authtoken.models import Token
-from django.contrib.auth import authenticate, login, logout
+
+from django.contrib.auth import (
+    authenticate, login, logout
+)
 from django.contrib.auth.models import update_last_login
 from rest_framework.viewsets import ModelViewSet
 
 
-from .serializers import RegistrationSerializer, LoginSerializer, ProfileSerializer
-from .models import Profile
+from apps.auths.serializers import (
+    RegistrationSerializer, LoginSerializer, ProfileSerializer
+)
+from apps.auths.models import Profile
 
 
 class RegistrationView(generics.CreateAPIView):
+    """View для регистрации"""
     permission_classes = (AllowAny,)
     serializer_class = RegistrationSerializer
 
 
 class LoginView(generics.CreateAPIView):
+    """View для логина"""
     serializer_class = LoginSerializer
 
     def post(self, request):
@@ -40,6 +51,7 @@ class LoginView(generics.CreateAPIView):
 
 
 class LogoutView(APIView):
+    """View для пользователя"""
     permission_classes = (IsAuthenticated,)
 
     def post(self, request):
@@ -48,5 +60,6 @@ class LogoutView(APIView):
 
 
 class ProfileApiView(ModelViewSet):
+    """Профиль для позователя CRUD"""
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer

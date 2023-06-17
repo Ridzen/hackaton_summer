@@ -4,7 +4,7 @@ from apps.auths.models import Users, Profile
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
-
+    """Сериалайзер для регистрации"""
     class Meta:
         model = Users
         fields = (
@@ -22,6 +22,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.ModelSerializer):
+    """Сериалайзер для пользователя"""
     class Meta:
         model = Users
         fields = (
@@ -32,6 +33,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    """Профиль пользователя"""
     class Meta:
         model = Profile
         fields = (

@@ -8,7 +8,10 @@ class WalletSerializer(serializers.ModelSerializer):
     """Сериалайзер для кошелька"""
     class Meta:
         model = Wallet
-        fields = "__all__"
+        fields = (
+            'id', 'owner',
+            'rs_number', 'balance'
+        )
 
 
 class WalletUpdateSerializer(serializers.ModelSerializer):
