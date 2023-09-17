@@ -6,42 +6,48 @@ from rest_framework.exceptions import ValidationError
 from apps.wallet.models import Wallet
 
 
+def check_expiry_month(value):
+    if not 1 <= int(value) <= 12:
+        raise serializers.ValidationError("Invalid expiry month.")
+
+
+def check_expiry_year(value):
+    today = datetime.datetime.now()
+    if not int(value) >= today.year:
+        raise serializers.ValidationError("Invalid expiry year.")
+
+
+def check_cvc(value):
+    if not 3 <= len(value) <= 4:
+        raise serializers.ValidationError("Invalid cvc number.")
+
+
+def check_payment_method(value):
+    payment_method = value.lower()
+    if payment_method not in ["card"]:
+        raise serializers.ValidationError("Invalid payment_method.")
+
+
 class WalletSerializer(serializers.ModelSerializer):
     """Сериалайзер для кошелька"""
 
-    def check_expiry_month(self, value):
-        if not 1 <= int(value) <= 12:
-            raise serializers.ValidationError("Invalid expiry month.")
-
-    def check_expiry_year(self, value):
-        today = datetime.datetime.now()
-        if not int(value) >= today.year:
-            raise serializers.ValidationError("Invalid expiry year.")
-
-    def check_cvc(self, value):
-        if not 3 <= len(value) <= 4:
-            raise serializers.ValidationError("Invalid cvc number.")
-
-    def check_payment_method(self, value):
-        payment_method = value.lower()
-        if payment_method not in ["card"]:
-            raise serializers.ValidationError("Invalid payment_method.")
-
-    card_number = serializers.CharField(max_length=150, required=True, source='rs_number')
+    card_number = serializers.CharField(
+        write_only=True, required=True, source='rs_number'
+    )
     expiry_month_card = serializers.CharField(
-        max_length=150,
+        write_only=True,
         required=True,
         validators=[check_expiry_month],
         source='expiry_month'
     )
     expiry_year_card = serializers.CharField(
-        max_length=150,
+        write_only=True,
         required=True,
         validators=[check_expiry_year],
         source='expiry_year'
     )
     cvc_card = serializers.CharField(
-        max_length=150,
+        write_only=True,
         required=True,
         validators=[check_cvc],
         source='cvc'
@@ -49,10 +55,7 @@ class WalletSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Wallet
-        fields = (
-            'card_number', 'balance', 'expiry_month_card',
-            'expiry_year_card', 'cvc_card'
-        )
+        fields = ('card_number', 'balance', 'expiry_month_card', 'expiry_year_card', 'cvc_card', )
 
 
 class WalletUpdateSerializer(serializers.ModelSerializer):

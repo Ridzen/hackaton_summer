@@ -8,7 +8,7 @@ class Wallet(models.Model):
     owner = models.OneToOneField(
         Profile, on_delete=models.CASCADE, related_name="wallet", verbose_name='Владелец'
     )
-    rs_number = models.IntegerField(verbose_name="Расчетный счет нашей системы")
+    rs_number = models.CharField(max_length=150, verbose_name="Расчетный счет нашей системы")
     balance = models.IntegerField(default=0, verbose_name="Баланс кошелька")
     expiry_month = models.CharField(max_length=150, verbose_name="Месяц истечения")
     expiry_year = models.CharField(max_length=150, verbose_name="Год истечения")
