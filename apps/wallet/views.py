@@ -1,11 +1,12 @@
 from rest_framework import permissions
 from rest_framework import generics
 
+from apps.wallet.mixins import WalletCreateMixin
 from apps.wallet.models import Wallet
 from apps.wallet.serializers import WalletSerializer, WalletUpdateSerializer
 
 
-class WalletViewSet(generics.CreateAPIView):
+class WalletViewSet(WalletCreateMixin):
     """Wallet ViewSet"""
     queryset = Wallet.objects.all()
     serializer_class = WalletSerializer
