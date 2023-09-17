@@ -18,8 +18,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 class PostByCategorySerializer(serializers.ModelSerializer):
     """Get Post By Category"""
-    category_name = CategorySerializer()
 
     class Meta:
         model = Post
-        fields = ('title', 'short_info', 'category_name', 'created_at')
+        fields = ('title', 'short_info', 'created_at')
