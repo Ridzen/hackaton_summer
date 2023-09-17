@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from apps.categories.serializers import CategorySerializer
 from apps.posts.models import Post
 
 
@@ -8,7 +9,7 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = (
-            "id", "title", "short_info", "status",
+            "title", "short_info", "status",
             "full_info", "business_plan_file", "amount", "amount_rest",
             "amount_per_season", "amount_of_person", "category_id",
             "user_profile_id"
@@ -17,7 +18,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 class PostByCategorySerializer(serializers.ModelSerializer):
     """Get Post By Category"""
-    category_name = serializers.RelatedField(source='category_id', read_only=True)
+    category_name = CategorySerializer()
 
     class Meta:
         model = Post
