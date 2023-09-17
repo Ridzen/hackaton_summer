@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.auths.models import Users, Profile
+from apps.auths.models import Users, Profile, EmailVerification
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -46,3 +46,12 @@ class ProfileSerializer(serializers.ModelSerializer):
             "birth_date"
         )
 
+
+class EmailVerificationSerializer(serializers.ModelSerializer):
+    """Верификация"""
+    class Meta:
+        model = EmailVerification
+        fields = (
+            'user',
+            'token'
+        )

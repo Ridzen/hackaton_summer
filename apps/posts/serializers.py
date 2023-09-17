@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from apps.categories.serializers import CategorySerializer
-from apps.posts.models import Post
+from apps.posts.models import Post, Comment, Like
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -22,3 +22,27 @@ class PostByCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('title', 'short_info', 'created_at')
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    """Create Comment"""
+
+    class Meta:
+        model = Comment
+        fields = (
+            'user',
+            'post',
+            'parent_comment',
+            'content',
+        )
+
+
+class LikeSerializer(serializers.ModelSerializer):
+    """Likes"""
+
+    class Meta:
+        model = Like
+        fields = (
+            'post',
+            'user',
+        )

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegistrationView, LoginView, LogoutView
+from .views import RegistrationView, LoginView, LogoutView, EmailVerificationView, VerifyEmailView
 from apps.auths.views import ProfileApiView
 from rest_framework.routers import DefaultRouter as DR
 
@@ -14,6 +14,8 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     # Эндпоинт для логаут пользователя
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('send-verification/', EmailVerificationView.as_view()),
+    path('verify-email/<str:token>/', VerifyEmailView.as_view(), name='verify-email'),
 ]
 
 urlpatterns += router.urls

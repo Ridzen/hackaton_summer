@@ -1,3 +1,7 @@
+import datetime
+from datetime import timedelta, timezone
+
+from django.utils.crypto import get_random_string
 from rest_framework import (
     status, generics
 )
@@ -14,11 +18,11 @@ from django.contrib.auth import (
 from django.contrib.auth.models import update_last_login
 from rest_framework.viewsets import ModelViewSet
 
-
+from apps.auths.managers import EmailVerificationManager
 from apps.auths.serializers import (
-    RegistrationSerializer, LoginSerializer, ProfileSerializer
+    RegistrationSerializer, LoginSerializer, ProfileSerializer, EmailVerificationSerializer
 )
-from apps.auths.models import Profile
+from apps.auths.models import Profile, EmailVerification
 
 
 class RegistrationView(generics.CreateAPIView):
@@ -63,3 +67,36 @@ class ProfileApiView(ModelViewSet):
     """Профиль для позователя CRUD"""
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+
+class EmailVerificationView(generics.CreateAPIView):
+    serializer_class = EmailVerificationSerializer
+
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        token = get_random_string(length=32)
+        verification = EmailVerification.objects.create(user=user, token=token)
+
+        email_verification_manager = EmailVerificationManager()  # Создаем экземпляр класса EmailVerificationManager
+        email_verification_manager.send_verification_email(user, request, token)
+
+        return Response(
+            {'detail': 'Письмо с верификационной ссылкой отправлено'}, status=status.HTTP_201_CREATED
+        )
+
+
+class VerifyEmailView(generics.GenericAPIView):
+    def get(self, request, token):
+        try:
+            verification = EmailVerification.objects.get(token=token)
+            user = verification.user
+
+            user.is_active = True
+            user.save()
+
+            verification.delete()
+
+            return Response({'detail': 'Email успешно верифицирован'}, status=status.HTTP_200_OK)
+        except EmailVerification.DoesNotExist:
+            return Response({'detail': 'Неверная или истекшая ссылка на верификацию'},
+                            status=status.HTTP_400_BAD_REQUEST)

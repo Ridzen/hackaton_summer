@@ -51,3 +51,50 @@ class Post(models.Model):
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
+
+
+class Comment(models.Model):
+    """Post Comments"""
+    user = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='comments',
+        verbose_name='Пользователь'
+    )
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name='comments', verbose_name='Пост'
+    )
+    parent_comment = models.ForeignKey(
+        'self', null=True, blank=True, on_delete=models.CASCADE,
+        related_name='replies', verbose_name='Родительский комментарий'
+    )
+    content = models.TextField(
+        verbose_name='Содержание'
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name='Дата создания'
+    )
+
+    def __str__(self):
+        return f'{self.user.username} - {self.post.title} - {self.content}'
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
+
+class Like(models.Model):
+    user = models.ForeignKey(
+        Profile, on_delete=models.CASCADE,
+        related_name='likes', verbose_name='Пользователь'
+    )
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, verbose_name='Публикация',
+        related_name='likes'
+    )
+
+    def __str__(self):
+        return f'{self.post.title} - {self.user.username}'
+
+    class Meta:
+        verbose_name = 'Лайк'
+        verbose_name_plural = 'Лайки'
+        unique_together = ('user', 'post')

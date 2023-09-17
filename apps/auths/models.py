@@ -44,7 +44,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
     )
 
     is_admin = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_simple_user = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_owner = models.BooleanField(default=False)
@@ -94,3 +94,22 @@ class Profile(models.Model):
     class Meta:
         verbose_name = "Профиль"
         verbose_name_plural = "Профили"
+
+
+class EmailVerification(models.Model):
+    user = models.ForeignKey(
+        Users, related_name='email_verification',
+        verbose_name='Пользователь', on_delete=models.CASCADE,
+    )
+    token = models.CharField(
+        max_length=50, verbose_name='Токен'
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name='Создано'
+    )
+
+    def __str__(self):
+        return f'{self.user} - {self.token}'
+
+    class Meta:
+        verbose_name = "Email Верификация"
