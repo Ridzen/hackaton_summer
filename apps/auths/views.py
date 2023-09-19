@@ -20,7 +20,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from apps.auths.managers import EmailVerificationManager
 from apps.auths.serializers import (
-    RegistrationSerializer, LoginSerializer, ProfileSerializer, EmailVerificationSerializer
+    RegistrationSerializer, LoginSerializer, ProfileSerializer, EmailVerificationSerializer, EmptySerializer
 )
 from apps.auths.models import Profile, EmailVerification
 
@@ -86,6 +86,8 @@ class EmailVerificationView(generics.CreateAPIView):
 
 
 class VerifyEmailView(generics.GenericAPIView):
+    serializer_class = EmptySerializer
+
     def get(self, request, token):
         try:
             verification = EmailVerification.objects.get(token=token)
@@ -98,5 +100,7 @@ class VerifyEmailView(generics.GenericAPIView):
 
             return Response({'detail': 'Email успешно верифицирован'}, status=status.HTTP_200_OK)
         except EmailVerification.DoesNotExist:
-            return Response({'detail': 'Неверная или истекшая ссылка на верификацию'},
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {'detail': 'Неверная или истекшая ссылка на верификацию'},
+                status=status.HTTP_400_BAD_REQUEST
+            )

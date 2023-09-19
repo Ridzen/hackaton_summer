@@ -55,3 +55,10 @@ class EmailVerificationSerializer(serializers.ModelSerializer):
             'user',
             'token'
         )
+
+
+class EmptySerializer(serializers.ModelSerializer):
+    """Верификация"""
+    class Meta:
+        model = EmailVerification
+        fields = ()
