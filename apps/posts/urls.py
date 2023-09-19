@@ -2,7 +2,7 @@ from django.urls import path
 
 from apps.posts.views import (
     PostListByCategoryViewSet, PostCreateViewSet, PostRetrieveViewSet, CommentCreateView,
-    PostUpdateViewSet, PostDestroyViewSet, LikeCreateView
+    PostUpdateViewSet, PostDestroyViewSet, LikeCreateView, CommentListView
 )
 
 urlpatterns = [
@@ -13,4 +13,5 @@ urlpatterns = [
     path('posts/<int:pk>/delete/', PostDestroyViewSet.as_view({'delete': 'destroy'}), name='post_delete'),
     path('posts/comment/', CommentCreateView.as_view()),
     path('posts/like/', LikeCreateView.as_view()),
+    path('posts/comments/<int:post_id>/', CommentListView.as_view())
 ]

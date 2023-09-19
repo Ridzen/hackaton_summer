@@ -87,3 +87,11 @@ class LikeCreateView(generics.CreateAPIView):
                 {'detail': 'Лайк успешно поставлен'}, status=status.HTTP_201_CREATED
             )
 
+
+class CommentListView(generics.ListAPIView):
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        post_id = self.kwargs['post_id']
+        queryset = Comment.objects.filter(post_id=post_id)
+        return queryset
